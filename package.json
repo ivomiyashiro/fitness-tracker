@@ -1,0 +1,29 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "Startup project with React and .NET",
+  "scripts": {
+    "dev:web-app": "pnpm --filter web-app dev",
+    "dev:api": "dotnet run --project ./apps/api",
+    "dev:all": "concurrently \"pnpm dev:api\" \"pnpm dev:web-app\"",
+    "lint:web-app": "pnpm --filter web-app lint",
+    "lint:api": "dotnet run --project ./apps/api -- --lint",
+    "lint:all": "concurrently \"pnpm lint:api\" \"pnpm lint:web-app\"",
+    "format:web-app": "pnpm --filter web-app format",
+    "test:dev": "pnpm --filter web-app test",
+    "prepare": "husky",
+    "pre-commit": "pnpm lint:web-app && pnpm format:web-app && git add -A ."
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "concurrently": "8.2.0",
+    "husky": "^9.1.7"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "apps/*"
+  ]
+}

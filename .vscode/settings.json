@@ -1,0 +1,5 @@
+{
+  "dotnet.defaultSolution": "api.sln",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
