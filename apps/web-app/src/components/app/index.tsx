@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { getDevice } from "@/helpers/getDevice";
 
-import AppRouter from "@/routes";
+import AppRouter from "@/router";
 
 const queryClient = new QueryClient();
 

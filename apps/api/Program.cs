@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using api.Data;
+using api.Domain.TrainingPlans;
+using api.Domain.TrainingPlans.Mappers;
+using api.Domain.TrainingPlans.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +17,13 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
-
-builder.Services.AddDbContext<DatabaseContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
-
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IRepository<TrainingPlan>, DataAccess<TrainingPlan>>();
+builder.Services.AddScoped<ITrainingPlanService, TrainingPlanService>();
+builder.Services.AddScoped<ITrainingPlanMappers, TrainingPlanMappers>();
+
 
 var app = builder.Build();
 
@@ -34,12 +36,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowWebApp");
 
-app.MapGet("/", () =>
-{
-    return Results.Ok(new
-    {
-        Message = "React + TypeScript + .NET API",
-    });
-});
+app.MapTrainingPlanEndpoints();
 
 app.Run();

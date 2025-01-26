@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-
+import { Toaster } from "../ui/toaster";
 import { AppHeader } from "./app-header";
 import { AppNavigation } from "./app-navigation";
 
@@ -9,6 +9,7 @@ export const AppLayout = () => {
       <AppHeader />
       <main className="app-padding h-full overflow-auto">
         <Outlet />
+        <Toaster />
       </main>
       <AppNavigation />
     </div>

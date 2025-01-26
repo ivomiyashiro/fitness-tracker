@@ -1,11 +1,16 @@
+using api.Domain.TrainingPlans;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data;
 
-public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbContext(options)
+public class DatabaseContext(IConfiguration config) : DbContext
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
+    public IConfiguration _config { get; set; } = config;
 
-    // Examples
-    // public DbSet<Todo> Todos { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer(_config.GetConnectionString("DatabaseConnection"));
+    }
+
+    public DbSet<TrainingPlan> TrainingPlans { get; set; }
 }

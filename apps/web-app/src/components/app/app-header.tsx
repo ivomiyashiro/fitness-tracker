@@ -1,19 +1,16 @@
 import { useNavigate } from "react-router";
 import { ChevronLeftIcon, SettingsIcon } from "lucide-react";
-
-import { useAppHeaderStore } from "@/stores/app.store";
-
+import { useAppHeaderStore } from "@/stores/app-header.store";
 import { Button } from "@/components/ui/button";
 
 export const AppHeader = () => {
-  const { prevPage, showSettings, title } = useAppHeaderStore((state) => state);
-
+  const { data } = useAppHeaderStore();
   const navigate = useNavigate();
-  const handleToPrevPage = () => navigate(prevPage || "/");
+  const handleToPrevPage = () => navigate(data?.prevPage || "/");
 
   return (
     <header className="app-padding relative flex items-center justify-between border-b">
-      {prevPage && (
+      {data?.prevPage && (
         <Button
           title="Back"
           variant="secondary"
@@ -23,8 +20,8 @@ export const AppHeader = () => {
           <ChevronLeftIcon />
         </Button>
       )}
-      <h1 className={"w-full text-center text-xl"}>{title}</h1>
-      {showSettings && (
+      <h1 className={"w-full text-center text-xl"}>{data?.title}</h1>
+      {data?.showSettings && (
         <Button title="Settings" variant="ghost" className="app-right absolute">
           <SettingsIcon />
         </Button>

@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 
-// Configuración general de Axios
 const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
   timeout: 10000,
@@ -9,11 +8,9 @@ const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// Interceptores para manejar respuestas y errores
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error) => {
-    console.error("API Error:", error);
     return Promise.reject(error);
   },
 );
