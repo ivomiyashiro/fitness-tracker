@@ -1,107 +1,69 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { TrainingPlanService } from "@/services/training-plan.service";
-import {
-  TrainingPlanResponse,
-  TrainingPlanPostRequest,
-  TrainingPlanPutRequest,
-  TrainingPlan,
-} from "@/services/training-plan.service.types";
 
-const getQueryKey = (handle?: string | number) => {
+import { TrainingPlan } from "@/types";
+import { TrainingPlanRequest } from "@/lib/api/training-plan/training-plan.api.types";
+
+import { TrainingPlanService } from "@/lib/api/training-plan/training-plan.api";
+
+import { getTrainingPlanWorkoutsQueryKey } from "./use-workout";
+
+export const getTrainingPlansQueryKey = (handle?: string | number) => {
   return ["training-plans", handle];
 };
 
-export const useGetTraininPlan = () => {
+export const useTrainingPlanGet = () => {
   return useQuery({
-    queryKey: getQueryKey(),
+    queryKey: getTrainingPlansQueryKey(),
     queryFn: () => TrainingPlanService.get(),
   });
 };
 
-export const usePutTrainingPlan = () => {
+export const useTrainingPlanPut = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: getQueryKey(),
-    mutationFn: (data: TrainingPlanPutRequest) => TrainingPlanService.put(data),
-    onMutate: async (newData) => {
-      await queryClient.cancelQueries({ queryKey: getQueryKey() });
-
-      const prevData = queryClient.getQueryData(
-        getQueryKey(),
-      ) as TrainingPlanResponse[];
-
-      queryClient.setQueryData(
-        getQueryKey(),
-        prevData.map((data) =>
-          data.trainingPlanId === newData.trainingPlanId ? newData : data,
-        ),
-      );
-
-      return { prevData, newData };
-    },
-    onError: (_err, _newData, context) => {
-      queryClient.setQueryData(["todos"], context?.prevData);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: getQueryKey() });
-    },
+    mutationKey: getTrainingPlansQueryKey(),
+    mutationFn: (
+      data: TrainingPlanRequest & {
+        trainingPlanId: TrainingPlan["trainingPlanId"];
+      },
+    ) => TrainingPlanService.put(data.trainingPlanId, data),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: getTrainingPlansQueryKey() }),
   });
 };
 
-export const usePostTrainingPlan = () => {
+export const useTrainingPlanPost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: getQueryKey(),
-    mutationFn: (data: TrainingPlanPostRequest) =>
-      TrainingPlanService.post(data),
-    onMutate: async (newData) => {
-      await queryClient.cancelQueries({ queryKey: getQueryKey() });
+    mutationKey: getTrainingPlansQueryKey(),
+    mutationFn: (data: TrainingPlanRequest) => TrainingPlanService.post(data),
 
-      const prevData = queryClient.getQueryData(
-        getQueryKey(),
-      ) as TrainingPlanResponse[];
-
-      queryClient.setQueryData(getQueryKey(), [...prevData, newData]);
-
-      return { prevData, newData };
-    },
-    onError: (_err, _newData, context) => {
-      queryClient.setQueryData(["todos"], context?.prevData);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: getQueryKey() });
-    },
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: getTrainingPlansQueryKey() }),
   });
 };
 
-export const useDeleteTrainingPlan = () => {
+export const useTrainingPlanDelete = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationKey: getQueryKey(),
+    mutationKey: getTrainingPlansQueryKey(),
     mutationFn: (trainingPlanId: TrainingPlan["trainingPlanId"]) =>
       TrainingPlanService.delete(trainingPlanId),
-    onMutate: async (newData) => {
-      await queryClient.cancelQueries({ queryKey: getQueryKey() });
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: getTrainingPlansQueryKey() }),
+  });
+};
 
-      const prevData = queryClient.getQueryData(
-        getQueryKey(),
-      ) as TrainingPlanResponse[];
-
-      queryClient.setQueryData(
-        getQueryKey(),
-        prevData.filter((data) => data.trainingPlanId !== newData),
-      );
-
-      return { prevData, newData };
-    },
-    onError: (_err, _newData, context) => {
-      queryClient.setQueryData(["todos"], context?.prevData);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: getQueryKey() });
-    },
+export const useTrainingPlanWorkouts = ({
+  trainingPlanId,
+}: {
+  trainingPlanId: TrainingPlan["trainingPlanId"];
+}) => {
+  return useQuery({
+    queryKey: getTrainingPlanWorkoutsQueryKey(),
+    queryFn: () => TrainingPlanService.getWorkouts(trainingPlanId),
   });
 };

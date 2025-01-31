@@ -11,7 +11,7 @@ using api.Data;
 
 namespace api.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250124172818_Remove_Weeks_And_Days")]
     partial class Remove_Weeks_And_Days
     {

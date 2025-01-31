@@ -10,3 +10,6 @@
 dotnet ef migrations add
 dotnet ef database update
 remove zustand
+create a filder helpers
+
+- add extensions (Services, repositories, mappers)

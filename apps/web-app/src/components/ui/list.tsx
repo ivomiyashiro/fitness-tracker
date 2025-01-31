@@ -6,8 +6,22 @@ import {
   TrashIcon,
 } from "lucide-react";
 import { useSwipeable } from "react-swipeable";
-import { cn } from "@/helpers/lib/utils";
+import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+
+// Get nested value from object
+const getNestedValue = (obj: Record<string, unknown>, path: string): string => {
+  return path.split(".").reduce((acc: unknown, part: string) => {
+    if (
+      acc &&
+      typeof acc === "object" &&
+      part in (acc as Record<string, unknown>)
+    ) {
+      return (acc as Record<string, unknown>)[part];
+    }
+    return "";
+  }, obj) as string;
+};
 
 const useListItem = ({
   data,
@@ -28,7 +42,7 @@ const useListItem = ({
     typeof data === "string"
       ? data
       : displayExpr && typeof data === "object"
-        ? (data[displayExpr as keyof typeof data] as string)
+        ? getNestedValue(data, displayExpr)
         : "";
 
   const handlerSwiped = (value: boolean) => setIsSwiped(value);

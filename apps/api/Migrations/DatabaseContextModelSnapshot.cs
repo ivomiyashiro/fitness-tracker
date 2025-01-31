@@ -10,7 +10,7 @@ using api.Data;
 
 namespace api.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -21,6 +21,43 @@ namespace api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("api.Domain.Excercises.Excercise", b =>
+                {
+                    b.Property<Guid>("ExcerciseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExcerciseId");
+
+                    b.ToTable("Excercises");
+                });
+
+            modelBuilder.Entity("api.Domain.Sets.Set", b =>
+                {
+                    b.Property<Guid>("SetId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Reps")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rir")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("WorkoutExcerciseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SetId");
+
+                    b.HasIndex("WorkoutExcerciseId");
+
+                    b.ToTable("Sets");
+                });
 
             modelBuilder.Entity("api.Domain.TrainingPlans.TrainingPlan", b =>
                 {
@@ -44,6 +81,109 @@ namespace api.Migrations
                         .IsUnique();
 
                     b.ToTable("TrainingPlans");
+                });
+
+            modelBuilder.Entity("api.Domain.WorkoutExcercises.WorkoutExcercise", b =>
+                {
+                    b.Property<Guid>("WorkoutExcerciseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ExcerciseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
+
+                    b.Property<Guid>("WorkoutId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("WorkoutExcerciseId");
+
+                    b.HasIndex("ExcerciseId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("WorkoutExcercises");
+                });
+
+            modelBuilder.Entity("api.Domain.Workouts.Workout", b =>
+                {
+                    b.Property<Guid>("WorkoutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
+
+                    b.Property<Guid>("TrainingPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("WorkoutId");
+
+                    b.HasIndex("TrainingPlanId");
+
+                    b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("api.Domain.Sets.Set", b =>
+                {
+                    b.HasOne("api.Domain.WorkoutExcercises.WorkoutExcercise", "WorkoutExcercise")
+                        .WithMany("Sets")
+                        .HasForeignKey("WorkoutExcerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkoutExcercise");
+                });
+
+            modelBuilder.Entity("api.Domain.WorkoutExcercises.WorkoutExcercise", b =>
+                {
+                    b.HasOne("api.Domain.Excercises.Excercise", "Excercise")
+                        .WithMany()
+                        .HasForeignKey("ExcerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Domain.Workouts.Workout", "Workout")
+                        .WithMany("WorkoutExcercises")
+                        .HasForeignKey("WorkoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Excercise");
+
+                    b.Navigation("Workout");
+                });
+
+            modelBuilder.Entity("api.Domain.Workouts.Workout", b =>
+                {
+                    b.HasOne("api.Domain.TrainingPlans.TrainingPlan", "TrainingPlan")
+                        .WithMany("Workouts")
+                        .HasForeignKey("TrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TrainingPlan");
+                });
+
+            modelBuilder.Entity("api.Domain.TrainingPlans.TrainingPlan", b =>
+                {
+                    b.Navigation("Workouts");
+                });
+
+            modelBuilder.Entity("api.Domain.WorkoutExcercises.WorkoutExcercise", b =>
+                {
+                    b.Navigation("Sets");
+                });
+
+            modelBuilder.Entity("api.Domain.Workouts.Workout", b =>
+                {
+                    b.Navigation("WorkoutExcercises");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,34 +12,35 @@ public class TrainingPlanService(
   private readonly IRepository<TrainingPlan> _trainingPlanRepository = trainingPlanRepository;
   private readonly ITrainingPlanMappers _trainingPlanMapper = trainingPlanMapper;
 
-  public async Task<IEnumerable<TrainingPlan>> GetAll(int? limit, int? offset, string? search)
+  public async Task<IEnumerable<TrainingPlanResponseDto>> Get(int? limit, int? offset, string? search)
   {
-    return await _trainingPlanRepository.GetAll(
-        limit,
-        offset,
-        x => (
-          string.IsNullOrEmpty(search) ||
-          x.Name.Contains(search) ||
-          (x.Description != null && x.Description.Contains(search))
-        )
+    return await _trainingPlanRepository.Get(
+        select: x => _trainingPlanMapper.ResponseMap(x),
+        limit: limit,
+        offset: offset
     );
   }
 
-  public async Task<TrainingPlan?> Post(TrainingPlanBody body)
+  public async Task<TrainingPlanResponseDto?> Post(TrainingPlanDto dto)
   {
-    var trainingPlan = _trainingPlanMapper.PostMap(body);
+    var trainingPlan = _trainingPlanMapper.PostMap(dto);
     if (trainingPlan is null) return null;
-    return await _trainingPlanRepository.Add(trainingPlan);
+    var newTrainingPlan = await _trainingPlanRepository.Add(trainingPlan);
+    return _trainingPlanMapper.ResponseMap(newTrainingPlan);
   }
 
-  public async Task<TrainingPlan?> Put(Guid uid, TrainingPlanBody body)
+  public async Task<TrainingPlanResponseDto?> Put(Guid uid, TrainingPlanDto dto)
   {
     var trainingPlanToUpdate = await _trainingPlanRepository.GetById(uid);
     if (trainingPlanToUpdate is null) return null;
 
-    var trainingPlan = _trainingPlanMapper.PutMap(trainingPlanToUpdate, body);
-    if (trainingPlan is null) return null;
-    return await _trainingPlanRepository.Update(trainingPlan);
+    var updatedTrainingPlan = _trainingPlanMapper.PutMap(trainingPlanToUpdate, dto);
+    if (updatedTrainingPlan is null) return null;
+
+    var result = await _trainingPlanRepository.Update(updatedTrainingPlan);
+    if (result is null) return null;
+
+    return _trainingPlanMapper.ResponseMap(result);
   }
 
   public async Task<bool> Delete(Guid uid)

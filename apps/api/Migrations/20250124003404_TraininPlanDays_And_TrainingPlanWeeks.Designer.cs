@@ -11,7 +11,7 @@ using api.Data;
 
 namespace api.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250124003404_TraininPlanDays_And_TrainingPlanWeeks")]
     partial class TraininPlanDays_And_TrainingPlanWeeks
     {

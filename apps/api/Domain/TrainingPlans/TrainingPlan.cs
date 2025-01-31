@@ -1,5 +1,7 @@
-using System.ComponentModel.DataAnnotations;
+using api.Domain.Workouts;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace api.Domain.TrainingPlans;
 
@@ -7,11 +9,14 @@ namespace api.Domain.TrainingPlans;
 public class TrainingPlan
 {
   [Key]
-  public required Guid TrainingPlanId { get; set; }
+  public Guid TrainingPlanId { get; set; }
 
   public required string Name { get; set; }
 
   public string? Description { get; set; }
 
   public required byte Weeks { get; set; }
+
+  [JsonIgnore]
+  public virtual IEnumerable<Workout>? Workouts { get; set; }
 }

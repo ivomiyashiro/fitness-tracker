@@ -11,7 +11,7 @@ using api.Data;
 
 namespace api.Migrations
 {
-    [DbContext(typeof(DatabaseContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20250121183227_add_unique_name_in_training_plan_table")]
     partial class add_unique_name_in_training_plan_table
     {
