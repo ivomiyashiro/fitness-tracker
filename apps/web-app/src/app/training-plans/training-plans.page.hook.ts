@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TrainingPlan } from "@/types";
 
-export const useTrainingPlansPage = () => {
+export const useTrainingPlanDialog = () => {
   const [deleteDrawer, setDeleteDrawer] = useState<{
     isOpen: boolean;
     data: TrainingPlan;
@@ -15,6 +15,23 @@ export const useTrainingPlansPage = () => {
       workouts: [],
     },
   });
+
+  const handleDeleteTrainingPlan = (data: TrainingPlan) => {
+    setDeleteDrawer({ data, isOpen: true });
+  };
+
+  const handleCloseDeleteDrawer = () => {
+    setDeleteDrawer((prev) => ({ ...prev, isOpen: false }));
+  };
+
+  return {
+    deleteDrawer,
+    handleCloseDeleteDrawer,
+    handleDeleteTrainingPlan,
+  };
+};
+
+export const useTrainingPlanForm = () => {
   const [form, setForm] = useState<{
     isOpen: boolean;
     title: string;
@@ -47,21 +64,10 @@ export const useTrainingPlansPage = () => {
     setForm((prev) => ({ ...prev, title: "New Training Plan", isOpen: true }));
   };
 
-  const handleDeleteTrainingPlan = (data: TrainingPlan) => {
-    setDeleteDrawer({ data, isOpen: true });
-  };
-
-  const handleCloseDeleteDrawer = () => {
-    setDeleteDrawer((prev) => ({ ...prev, isOpen: false }));
-  };
-
   return {
-    deleteDrawer,
     form,
     handleAddNew,
-    handleCloseDeleteDrawer,
     handleCloseForm,
-    handleDeleteTrainingPlan,
     handleEditTrainingPlan,
   };
 };

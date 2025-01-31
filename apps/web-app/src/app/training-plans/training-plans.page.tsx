@@ -11,22 +11,23 @@ import { DrawerDialog } from "@/components/ui/drawer-dialog";
 import { List, ListItem } from "@/components/ui/list";
 import { PageLayout } from "@/components/layouts/page/page.layout";
 
-import { useTrainingPlansPage } from "./training-plans.page.hook";
+import {
+  useTrainingPlanDialog,
+  useTrainingPlanForm,
+} from "./training-plans.page.hook";
 import { TrainingPlanForm } from "./training-plans-form";
 
 const TrainingPlansPage = () => {
   const navigate = useNavigate();
+
   const { data: trainingPlans, isLoading } = useTrainingPlanGet();
   const { mutate: deleteTrainingPlan } = useTrainingPlanDelete();
-  const {
-    deleteDrawer,
-    form,
-    handleAddNew,
-    handleCloseDeleteDrawer,
-    handleCloseForm,
-    handleDeleteTrainingPlan,
-    handleEditTrainingPlan,
-  } = useTrainingPlansPage();
+
+  const { form, handleAddNew, handleCloseForm, handleEditTrainingPlan } =
+    useTrainingPlanForm();
+
+  const { deleteDrawer, handleCloseDeleteDrawer, handleDeleteTrainingPlan } =
+    useTrainingPlanDialog();
 
   if (isLoading) {
     return <AppFallback />;
