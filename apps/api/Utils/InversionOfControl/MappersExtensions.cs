@@ -2,7 +2,7 @@ using api.Domain.TrainingPlans.Mappers;
 using api.Domain.WorkoutExercises.Mappers;
 using api.Domain.Workouts.Mappers;
 
-namespace api.Helpers;
+namespace api.Utils.InversionOfControl;
 
 public static class MapperExtensions
 {

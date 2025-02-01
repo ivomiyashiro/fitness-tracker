@@ -3,7 +3,7 @@ using api.Domain.TrainingPlans.Services;
 using api.Domain.TrainingPlans.Dtos;
 using api.Domain.Workouts.Services;
 using api.Domain.Workouts.Dtos;
-using api.Helpers;
+using api.Utils.Dtos;
 
 namespace api.Domain.TrainingPlans;
 

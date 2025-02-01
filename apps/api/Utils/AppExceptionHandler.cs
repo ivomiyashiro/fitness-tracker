@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 
-namespace api.Helpers;
+using api.Utils;
 
 public static class AppExceptionHandler
 {

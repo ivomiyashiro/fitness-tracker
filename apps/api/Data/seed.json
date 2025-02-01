@@ -1,0 +1,34 @@
+{
+  "exercises": [
+    {
+      "name": "Push Up"
+    },
+    {
+      "name": "Squat"
+    },
+    {
+      "name": "Lunges"
+    },
+    {
+      "name": "Plank"
+    },
+    {
+      "name": "Deadlift"
+    },
+    {
+      "name": "Pull Up"
+    },
+    {
+      "name": "Burpees"
+    },
+    {
+      "name": "Jumping Jacks"
+    },
+    {
+      "name": "Mountain Climbers"
+    },
+    {
+      "name": "Bicep Curl"
+    }
+  ]
+}

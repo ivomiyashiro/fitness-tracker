@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using api.Domain.Workouts.Dtos;
 using api.Domain.Workouts.Services;
-using api.Helpers;
 using api.Domain.WorkoutExercises.Services;
+using api.Utils.Dtos;
 
 namespace api.Domain.Workouts;
 

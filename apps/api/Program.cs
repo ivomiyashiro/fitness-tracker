@@ -2,7 +2,8 @@ using api.Data;
 using api.Domain.Exercises;
 using api.Domain.TrainingPlans;
 using api.Domain.Workouts;
-using api.Helpers;
+using api.Utils;
+using api.Utils.InversionOfControl;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,14 @@ builder.Services.AddRepositories();
 builder.Services.AddServices();
 
 var app = builder.Build();
+
+
+await using (var serviceScope = app.Services.CreateAsyncScope())
+await using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>())
+{
+  // Ensure the database is created to seed data
+  await dbContext.Database.EnsureCreatedAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {
