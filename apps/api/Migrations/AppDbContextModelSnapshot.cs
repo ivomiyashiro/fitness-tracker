@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -12,11 +11,9 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250127185009_Change_TrainingPlanWorkoutId_Name")]
-    partial class Change_TrainingPlanWorkoutId_Name
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,30 +57,6 @@ namespace api.Migrations
                     b.HasIndex("WorkoutExerciseId");
 
                     b.ToTable("Sets");
-                });
-
-            modelBuilder.Entity("api.Domain.TrainingPlanWorkouts.TrainingPlanWorkout", b =>
-                {
-                    b.Property<Guid>("TrainingPlanWorkoutId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte>("Order")
-                        .HasColumnType("tinyint");
-
-                    b.Property<Guid>("TrainingPlanId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("WorkoutId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TrainingPlanWorkoutId");
-
-                    b.HasIndex("TrainingPlanId");
-
-                    b.HasIndex("WorkoutId");
-
-                    b.ToTable("TrainingPlanWorkouts");
                 });
 
             modelBuilder.Entity("api.Domain.TrainingPlans.TrainingPlan", b =>
@@ -144,7 +117,15 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
+
+                    b.Property<Guid>("TrainingPlanId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("WorkoutId");
+
+                    b.HasIndex("TrainingPlanId");
 
                     b.ToTable("Workouts");
                 });
@@ -152,31 +133,12 @@ namespace api.Migrations
             modelBuilder.Entity("api.Domain.Sets.Set", b =>
                 {
                     b.HasOne("api.Domain.WorkoutExercises.WorkoutExercise", "WorkoutExercise")
-                        .WithMany()
+                        .WithMany("Sets")
                         .HasForeignKey("WorkoutExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("WorkoutExercise");
-                });
-
-            modelBuilder.Entity("api.Domain.TrainingPlanWorkouts.TrainingPlanWorkout", b =>
-                {
-                    b.HasOne("api.Domain.TrainingPlans.TrainingPlan", "TrainingPlan")
-                        .WithMany("TrainingPlanWorkouts")
-                        .HasForeignKey("TrainingPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Domain.Workouts.Workout", "Workout")
-                        .WithMany()
-                        .HasForeignKey("WorkoutId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TrainingPlan");
-
-                    b.Navigation("Workout");
                 });
 
             modelBuilder.Entity("api.Domain.WorkoutExercises.WorkoutExercise", b =>
@@ -198,9 +160,25 @@ namespace api.Migrations
                     b.Navigation("Workout");
                 });
 
+            modelBuilder.Entity("api.Domain.Workouts.Workout", b =>
+                {
+                    b.HasOne("api.Domain.TrainingPlans.TrainingPlan", "TrainingPlan")
+                        .WithMany("Workouts")
+                        .HasForeignKey("TrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TrainingPlan");
+                });
+
             modelBuilder.Entity("api.Domain.TrainingPlans.TrainingPlan", b =>
                 {
-                    b.Navigation("TrainingPlanWorkouts");
+                    b.Navigation("Workouts");
+                });
+
+            modelBuilder.Entity("api.Domain.WorkoutExercises.WorkoutExercise", b =>
+                {
+                    b.Navigation("Sets");
                 });
 
             modelBuilder.Entity("api.Domain.Workouts.Workout", b =>

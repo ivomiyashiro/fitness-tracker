@@ -4,5 +4,5 @@ namespace api.Domain.WorkoutExercises.Services;
 
 public interface IWorkoutExercisesService
 {
-  Task<WorkoutExerciseResponseDto> GetByWorkoutId(Guid workoutId);
+  Task<IEnumerable<WorkoutExerciseResponseDto>> GetByWorkoutId(Guid workoutId);
 }

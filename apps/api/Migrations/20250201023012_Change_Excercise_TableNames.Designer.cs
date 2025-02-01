@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250128192407_Remove_TrainingPlanWorkouts")]
-    partial class Remove_TrainingPlanWorkouts
+    [Migration("20250201023012_Change_Excercise_TableNames")]
+    partial class Change_Excercise_TableNames
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class Exercises_Sets_TrainingPlanWorkouts_WorkoutExercises_Workouts : Migration
+    public partial class Change_Excercise_TableNames : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,17 +24,17 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sets",
+                name: "TrainingPlans",
                 columns: table => new
                 {
-                    SetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WorkoutExerciseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Reps = table.Column<int>(type: "int", nullable: false),
-                    Rir = table.Column<int>(type: "int", nullable: false)
+                    TrainingPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weeks = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sets", x => x.SetId);
+                    table.PrimaryKey("PK_TrainingPlans", x => x.TrainingPlanId);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,36 +42,18 @@ namespace api.Migrations
                 columns: table => new
                 {
                     WorkoutId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Workouts", x => x.WorkoutId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TrainingPlanWorkouts",
-                columns: table => new
-                {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TrainingPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WorkoutId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Order = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TrainingPlanWorkouts", x => x.Guid);
+                    table.PrimaryKey("PK_Workouts", x => x.WorkoutId);
                     table.ForeignKey(
-                        name: "FK_TrainingPlanWorkouts_TrainingPlans_TrainingPlanId",
+                        name: "FK_Workouts_TrainingPlans_TrainingPlanId",
                         column: x => x.TrainingPlanId,
                         principalTable: "TrainingPlans",
                         principalColumn: "TrainingPlanId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TrainingPlanWorkouts_Workouts_WorkoutId",
-                        column: x => x.WorkoutId,
-                        principalTable: "Workouts",
-                        principalColumn: "WorkoutId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -101,15 +83,36 @@ namespace api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_TrainingPlanWorkouts_TrainingPlanId",
-                table: "TrainingPlanWorkouts",
-                column: "TrainingPlanId");
+            migrationBuilder.CreateTable(
+                name: "Sets",
+                columns: table => new
+                {
+                    SetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WorkoutExerciseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Reps = table.Column<int>(type: "int", nullable: false),
+                    Rir = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sets", x => x.SetId);
+                    table.ForeignKey(
+                        name: "FK_Sets_WorkoutExercises_WorkoutExerciseId",
+                        column: x => x.WorkoutExerciseId,
+                        principalTable: "WorkoutExercises",
+                        principalColumn: "WorkoutExerciseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TrainingPlanWorkouts_WorkoutId",
-                table: "TrainingPlanWorkouts",
-                column: "WorkoutId");
+                name: "IX_Sets_WorkoutExerciseId",
+                table: "Sets",
+                column: "WorkoutExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrainingPlans_Name",
+                table: "TrainingPlans",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkoutExercises_ExerciseId",
@@ -120,6 +123,11 @@ namespace api.Migrations
                 name: "IX_WorkoutExercises_WorkoutId",
                 table: "WorkoutExercises",
                 column: "WorkoutId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workouts_TrainingPlanId",
+                table: "Workouts",
+                column: "TrainingPlanId");
         }
 
         /// <inheritdoc />
@@ -129,9 +137,6 @@ namespace api.Migrations
                 name: "Sets");
 
             migrationBuilder.DropTable(
-                name: "TrainingPlanWorkouts");
-
-            migrationBuilder.DropTable(
                 name: "WorkoutExercises");
 
             migrationBuilder.DropTable(
@@ -139,6 +144,9 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Workouts");
+
+            migrationBuilder.DropTable(
+                name: "TrainingPlans");
         }
     }
 }
