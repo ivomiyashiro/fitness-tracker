@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ExcerciseCombobox } from "@/components/comboboxes/excercise/excercise-combobox";
+import { ExerciseCombobox } from "@/components/comboboxes/exercise/exercise-combobox";
 import { Button } from "@/components/ui/button";
 
 import { useWorkoutForm } from "./workouts-form.hook";
@@ -65,12 +65,12 @@ export const WorkoutForm = ({
         />
         <FormField
           control={form.control}
-          name="excercises"
+          name="exercises"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Excercises</FormLabel>
+              <FormLabel>Exercises</FormLabel>
               <FormControl>
-                <ExcerciseCombobox
+                <ExerciseCombobox
                   selected={field.value}
                   onSelect={field.onChange}
                 />

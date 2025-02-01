@@ -1,3 +1,3 @@
-import { Excercise } from "@/types";
+import { Exercise } from "@/types";
 
-export type ExcerciseResponse = Excercise[];
+export type ExerciseResponse = Exercise[];

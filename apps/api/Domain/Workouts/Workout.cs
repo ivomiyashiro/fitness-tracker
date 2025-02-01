@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using api.Domain.TrainingPlans;
-using api.Domain.WorkoutExcercises;
+using api.Domain.WorkoutExercises;
 
 namespace api.Domain.Workouts;
 
@@ -20,5 +20,5 @@ public class Workout
   public virtual TrainingPlan? TrainingPlan { get; set; }
 
   [JsonIgnore]
-  public virtual IEnumerable<WorkoutExcercise>? WorkoutExcercises { get; set; }
+  public virtual IEnumerable<WorkoutExercise>? WorkoutExercises { get; set; }
 }

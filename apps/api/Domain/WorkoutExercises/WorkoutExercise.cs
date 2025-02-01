@@ -1,25 +1,25 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using api.Domain.Excercises;
+using api.Domain.Exercises;
 using api.Domain.Sets;
 using api.Domain.Workouts;
 
-namespace api.Domain.WorkoutExcercises;
+namespace api.Domain.WorkoutExercises;
 
-public class WorkoutExcercise
+public class WorkoutExercise
 {
   [Key]
-  public Guid WorkoutExcerciseId { get; set; }
+  public Guid WorkoutExerciseId { get; set; }
 
   public required Guid WorkoutId { get; set; }
 
-  public required Guid ExcerciseId { get; set; }
+  public required Guid ExerciseId { get; set; }
 
   public required byte Order { get; set; }
 
   public virtual Workout? Workout { get; set; }
 
-  public virtual Excercise? Excercise { get; set; }
+  public virtual Exercise? Exercise { get; set; }
 
   [JsonIgnore]
   public virtual IEnumerable<Set>? Sets { get; set; }

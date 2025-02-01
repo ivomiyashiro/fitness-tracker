@@ -41,7 +41,7 @@ export const useWorkoutForm = ({
       trainingPlanId: "",
       workoutId: "",
       name: "",
-      excercises: [],
+      exercises: [],
     });
   };
 
@@ -51,13 +51,13 @@ export const useWorkoutForm = ({
         workoutId: defaultValues.workoutId,
         trainingPlanId: defaultValues.trainingPlanId,
         name: data.name,
-        excercises: data.excercises,
+        exercises: data.exercises,
       });
     } else {
       createTrainingPlan({
         trainingPlanId: defaultValues.trainingPlanId,
         name: data.name,
-        excercises: data.excercises,
+        exercises: data.exercises,
       });
     }
 

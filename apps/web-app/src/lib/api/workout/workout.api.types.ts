@@ -1,10 +1,10 @@
 import { Workout } from "@/types";
-import { ExcerciseResponse } from "../excercise/excercise.api.types";
+import { ExerciseResponse } from "../exercise/exercise.api.types";
 
 export type WorkoutPostRequest = {
   trainingPlanId: string;
   name: string;
-  excercises: ExcerciseResponse;
+  exercises: ExerciseResponse;
 };
 
 export type WorkoutResponse = Workout[];

@@ -1,6 +1,6 @@
 using api.Data;
 using api.Domain.Workouts.Dtos;
-using api.Domain.WorkoutExcercises;
+using api.Domain.WorkoutExercises;
 using api.Domain.Workouts.Mappers;
 
 namespace api.Domain.Workouts.Services;
@@ -8,12 +8,12 @@ namespace api.Domain.Workouts.Services;
 public class WorkoutService(
   AppDbContext _context,
   IRepository<Workout> workoutRepository,
-  IRepository<WorkoutExcercise> workoutExcerciseRepository,
+  IRepository<WorkoutExercise> workoutExerciseRepository,
   IWorkoutMappers workoutMappers
 ) : IWorkoutService
 {
   private readonly IRepository<Workout> _workoutRepository = workoutRepository;
-  private readonly IRepository<WorkoutExcercise> _workoutExcerciseRepository = workoutExcerciseRepository;
+  private readonly IRepository<WorkoutExercise> _workoutExerciseRepository = workoutExerciseRepository;
   private readonly IWorkoutMappers _workoutMappers = workoutMappers;
 
   public async Task<bool> Delete(Guid uid)
@@ -58,12 +58,12 @@ public class WorkoutService(
         Name = dto.Name,
       });
 
-      foreach (var (exercise, index) in dto.Excercises.Select((ex, index) => (ex, index)))
+      foreach (var (exercise, index) in dto.Exercises.Select((ex, index) => (ex, index)))
       {
-        await _workoutExcerciseRepository.Add(new WorkoutExcercise
+        await _workoutExerciseRepository.Add(new WorkoutExercise
         {
           WorkoutId = newWorkout.WorkoutId,
-          ExcerciseId = exercise.ExcerciseId,
+          ExerciseId = exercise.ExerciseId,
           Order = (byte)(index + 1),
         });
       }

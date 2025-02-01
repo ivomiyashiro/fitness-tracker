@@ -1,7 +1,7 @@
 using api.Data;
-using api.Domain.Excercises;
+using api.Domain.Exercises;
 using api.Domain.TrainingPlans;
-using api.Domain.WorkoutExcercises;
+using api.Domain.WorkoutExercises;
 using api.Domain.Workouts;
 
 namespace api.Helpers
@@ -10,10 +10,10 @@ namespace api.Helpers
   {
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-      services.AddScoped<IRepository<Excercise>, Repository<Excercise>>();
+      services.AddScoped<IRepository<Exercise>, Repository<Exercise>>();
       services.AddScoped<IRepository<TrainingPlan>, Repository<TrainingPlan>>();
       services.AddScoped<IRepository<Workout>, Repository<Workout>>();
-      services.AddScoped<IRepository<WorkoutExcercise>, Repository<WorkoutExcercise>>();
+      services.AddScoped<IRepository<WorkoutExercise>, Repository<WorkoutExercise>>();
 
       return services;
     }

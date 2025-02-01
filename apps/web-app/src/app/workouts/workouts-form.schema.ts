@@ -5,9 +5,9 @@ export const WorkoutPostSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }).max(50, {
     message: "Name must not exceed 50 characters",
   }),
-  excercises: z.array(
+  exercises: z.array(
     z.object({
-      excerciseId: z.string(),
+      exerciseId: z.string(),
       name: z.string(),
     }),
   ),

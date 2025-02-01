@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace api.Domain.Excercises;
+namespace api.Domain.Exercises;
 
-public class Excercise
+public class Exercise
 {
   [Key]
-  public Guid ExcerciseId { get; set; }
+  public Guid ExerciseId { get; set; }
 
   public required string Name { get; set; }
 }

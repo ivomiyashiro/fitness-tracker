@@ -1,5 +1,5 @@
 using api.Data;
-using api.Domain.Excercises;
+using api.Domain.Exercises;
 using api.Domain.TrainingPlans;
 using api.Domain.Workouts;
 using api.Helpers;
@@ -27,7 +27,7 @@ app.UseCors("AllowWebApp");
 app.UseHttpsRedirection();
 
 // Enpoints
-app.MapExcerciseEndpoints();
+app.MapExerciseEndpoints();
 app.MapTrainingPlanEndpoints();
 app.MapWorkoutEndpoints();
 

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using api.Domain.Workouts.Dtos;
 using api.Domain.Workouts.Services;
 using api.Helpers;
+using api.Domain.WorkoutExercises.Services;
 
 namespace api.Domain.Workouts;
 
@@ -57,5 +58,15 @@ public static class WorkoutEndpoints
       return Results.Ok(new { Deleted = result });
     })
     .Produces<DeletedResponseDto>();
+
+    group.MapGet("/{uid}/exercises", async (
+      IWorkoutExercisesService _workoutExerciseService,
+      Guid uid
+    ) =>
+    {
+      var result = await _workoutExerciseService.GetByWorkoutId(uid);
+
+      return Results.Ok(result);
+    });
   }
 }

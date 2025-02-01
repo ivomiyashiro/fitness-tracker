@@ -12,7 +12,7 @@ export const useWorkoutPageForm = ({
     workoutId: "",
     order: 1,
     name: "",
-    excercises: [],
+    exercises: [],
   };
   const [isOpen, setOpen] = useState(false);
   const [title, setTitle] = useState(DEFAULT_TITLE);
@@ -57,7 +57,7 @@ export const useWorkoutPageDialog = ({
     workoutId: "",
     order: 1,
     name: "",
-    excercises: [],
+    exercises: [],
   });
 
   const handleDeleteTrainingPlan = (data: Workout) => {

@@ -1,25 +1,25 @@
-import { Excercise } from "@/types";
+import { Exercise } from "@/types";
 import { Combobox } from "@/components/ui/combobox";
-import { useExcerciseCombobox } from "./excercise-combobox.hook";
+import { useExerciseCombobox } from "./exercise-combobox.hook";
 
-export const ExcerciseCombobox = ({
+export const ExerciseCombobox = ({
   selected,
   placeholder,
   onSelect,
 }: {
-  selected: Excercise[];
+  selected: Exercise[];
   placeholder?: string;
-  onSelect: (selected: Excercise[]) => void;
+  onSelect: (selected: Exercise[]) => void;
 }) => {
-  const { data } = useExcerciseCombobox();
+  const { data } = useExerciseCombobox();
 
   return (
     <Combobox
       data={data || []}
       labelKey="name"
-      placeholder={placeholder ?? "Excercises..."}
+      placeholder={placeholder ?? "Exercises..."}
       selected={selected || []}
-      valueKey="excerciseId"
+      valueKey="exerciseId"
       onSelect={onSelect}
     />
   );

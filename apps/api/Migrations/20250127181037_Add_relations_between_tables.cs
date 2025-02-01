@@ -11,16 +11,16 @@ namespace api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateIndex(
-                name: "IX_Sets_WorkoutExcerciseId",
+                name: "IX_Sets_WorkoutExerciseId",
                 table: "Sets",
-                column: "WorkoutExcerciseId");
+                column: "WorkoutExerciseId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Sets_WorkoutExcercises_WorkoutExcerciseId",
+                name: "FK_Sets_WorkoutExercises_WorkoutExerciseId",
                 table: "Sets",
-                column: "WorkoutExcerciseId",
-                principalTable: "WorkoutExcercises",
-                principalColumn: "WorkoutExcerciseId",
+                column: "WorkoutExerciseId",
+                principalTable: "WorkoutExercises",
+                principalColumn: "WorkoutExerciseId",
                 onDelete: ReferentialAction.Cascade);
         }
 
@@ -28,11 +28,11 @@ namespace api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Sets_WorkoutExcercises_WorkoutExcerciseId",
+                name: "FK_Sets_WorkoutExercises_WorkoutExerciseId",
                 table: "Sets");
 
             migrationBuilder.DropIndex(
-                name: "IX_Sets_WorkoutExcerciseId",
+                name: "IX_Sets_WorkoutExerciseId",
                 table: "Sets");
         }
     }

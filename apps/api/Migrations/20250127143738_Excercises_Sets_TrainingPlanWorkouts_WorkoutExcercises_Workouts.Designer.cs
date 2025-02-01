@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250127143738_Excercises_Sets_TrainingPlanWorkouts_WorkoutExcercises_Workouts")]
-    partial class Excercises_Sets_TrainingPlanWorkouts_WorkoutExcercises_Workouts
+    [Migration("20250127143738_Exercises_Sets_TrainingPlanWorkouts_WorkoutExercises_Workouts")]
+    partial class Exercises_Sets_TrainingPlanWorkouts_WorkoutExercises_Workouts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,9 +25,9 @@ namespace api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("api.Domain.Excercises.Excercise", b =>
+            modelBuilder.Entity("api.Domain.Exercises.Exercise", b =>
                 {
-                    b.Property<Guid>("ExcerciseId")
+                    b.Property<Guid>("ExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -35,9 +35,9 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ExcerciseId");
+                    b.HasKey("ExerciseId");
 
-                    b.ToTable("Excercises");
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("api.Domain.Sets.Set", b =>
@@ -52,7 +52,7 @@ namespace api.Migrations
                     b.Property<int>("Rir")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("WorkoutExcerciseId")
+                    b.Property<Guid>("WorkoutExerciseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("SetId");
@@ -108,13 +108,13 @@ namespace api.Migrations
                     b.ToTable("TrainingPlans");
                 });
 
-            modelBuilder.Entity("api.Domain.WorkoutExcercises.WorkoutExcercise", b =>
+            modelBuilder.Entity("api.Domain.WorkoutExercises.WorkoutExercise", b =>
                 {
-                    b.Property<Guid>("WorkoutExcerciseId")
+                    b.Property<Guid>("WorkoutExerciseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ExcerciseId")
+                    b.Property<Guid>("ExerciseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte>("Order")
@@ -123,13 +123,13 @@ namespace api.Migrations
                     b.Property<Guid>("WorkoutId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("WorkoutExcerciseId");
+                    b.HasKey("WorkoutExerciseId");
 
-                    b.HasIndex("ExcerciseId");
+                    b.HasIndex("ExerciseId");
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("WorkoutExcercises");
+                    b.ToTable("WorkoutExercises");
                 });
 
             modelBuilder.Entity("api.Domain.Workouts.Workout", b =>
@@ -166,11 +166,11 @@ namespace api.Migrations
                     b.Navigation("Workout");
                 });
 
-            modelBuilder.Entity("api.Domain.WorkoutExcercises.WorkoutExcercise", b =>
+            modelBuilder.Entity("api.Domain.WorkoutExercises.WorkoutExercise", b =>
                 {
-                    b.HasOne("api.Domain.Excercises.Excercise", "Excercise")
+                    b.HasOne("api.Domain.Exercises.Exercise", "Exercise")
                         .WithMany()
-                        .HasForeignKey("ExcerciseId")
+                        .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -180,7 +180,7 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Excercise");
+                    b.Navigation("Exercise");
 
                     b.Navigation("Workout");
                 });

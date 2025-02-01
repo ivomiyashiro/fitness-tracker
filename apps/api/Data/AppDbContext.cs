@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using api.Domain.Excercises;
+using api.Domain.Exercises;
 using api.Domain.Sets;
 using api.Domain.TrainingPlans;
-using api.Domain.WorkoutExcercises;
+using api.Domain.WorkoutExercises;
 using api.Domain.Workouts;
 
 namespace api.Data;
@@ -33,9 +33,9 @@ public class AppDbContext(IConfiguration config) : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    public DbSet<Excercise> Excercises { get; set; }
+    public DbSet<Exercise> Exercises { get; set; }
     public DbSet<Set> Sets { get; set; }
     public DbSet<TrainingPlan> TrainingPlans { get; set; }
     public DbSet<Workout> Workouts { get; set; }
-    public DbSet<WorkoutExcercise> WorkoutExcercises { get; set; }
+    public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
 }

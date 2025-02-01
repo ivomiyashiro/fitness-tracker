@@ -1,4 +1,4 @@
-using api.Domain.Excercises.Dtos;
+using api.Domain.Exercises.Dtos;
 using api.Domain.Workouts.Dtos;
 
 namespace api.Domain.Workouts.Mappers;
@@ -12,10 +12,10 @@ public class WorkoutMappers : IWorkoutMappers
       Name = workout.Name,
       WorkoutId = workout.WorkoutId,
       Order = workout.Order,
-      Excercises = workout.WorkoutExcercises!.Select(workoutEx => new ExcerciseResponseDto
+      Exercises = workout.WorkoutExercises!.Select(workoutEx => new ExerciseResponseDto
       {
-        ExcerciseId = workoutEx.ExcerciseId,
-        Name = workoutEx.Excercise!.Name
+        ExerciseId = workoutEx.ExerciseId,
+        Name = workoutEx.Exercise!.Name
       })
     };
   }

@@ -1,6 +1,6 @@
 using Mapster;
 using api.Domain.TrainingPlans.Dtos;
-using api.Domain.Excercises.Dtos;
+using api.Domain.Exercises.Dtos;
 using api.Domain.Workouts.Dtos;
 
 namespace api.Domain.TrainingPlans.Mappers;
@@ -33,10 +33,10 @@ public class TrainingPlanMappers : ITrainingPlanMappers
       {
         WorkoutId = workout.WorkoutId,
         Name = workout.Name,
-        Excercises = workout.WorkoutExcercises.Select(excercise => new ExcerciseResponseDto
+        Exercises = workout.WorkoutExercises.Select(exercise => new ExerciseResponseDto
         {
-          ExcerciseId = excercise.ExcerciseId,
-          Name = excercise.Excercise!.Name,
+          ExerciseId = exercise.ExerciseId,
+          Name = exercise.Exercise!.Name,
         })
       })
     };

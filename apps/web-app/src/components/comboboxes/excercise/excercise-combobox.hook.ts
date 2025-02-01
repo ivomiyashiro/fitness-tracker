@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { ExcerciseService } from "@/lib/api/excercise/excercise.api";
+import { ExerciseService } from "@/lib/api/exercise/exercise.api";
 import { GetParams } from "@/lib/api";
 
-export const useExcerciseCombobox = ({
+export const useExerciseCombobox = ({
   limit,
   offset,
   search,
 }: GetParams = {}) => {
   return useQuery({
-    queryKey: ["excercises"],
-    queryFn: () => ExcerciseService.get({ limit, offset, search }),
+    queryKey: ["exercises"],
+    queryFn: () => ExerciseService.get({ limit, offset, search }),
     refetchOnMount: false,
   });
 };

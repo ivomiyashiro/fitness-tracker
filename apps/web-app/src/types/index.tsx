@@ -8,13 +8,13 @@ export type TrainingPlan = {
 
 export type Workout = {
   workoutId: string;
-  excercises: Excercise[];
+  exercises: Exercise[];
   name: string;
   order: number;
   trainingPlanId: string;
 };
 
-export type Excercise = {
-  excerciseId: string;
+export type Exercise = {
+  exerciseId: string;
   name: string;
 };

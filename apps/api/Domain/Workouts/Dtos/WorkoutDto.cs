@@ -1,4 +1,4 @@
-using api.Domain.Excercises.Dtos;
+using api.Domain.Exercises.Dtos;
 
 namespace api.Domain.Workouts.Dtos;
 
@@ -8,5 +8,5 @@ public class WorkoutDto
 
   public required string Name { get; set; }
 
-  public IEnumerable<ExcerciseResponseDto> Excercises { get; set; } = new List<ExcerciseResponseDto>();
+  public IEnumerable<ExerciseResponseDto> Exercises { get; set; } = new List<ExerciseResponseDto>();
 }

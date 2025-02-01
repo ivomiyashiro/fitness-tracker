@@ -1,4 +1,4 @@
-using api.Domain.Excercises.Dtos;
+using api.Domain.Exercises.Dtos;
 
 namespace api.Domain.Workouts.Dtos;
 
@@ -10,5 +10,5 @@ public class WorkoutResponseDto
 
   public byte Order { get; set; }
 
-  public IEnumerable<ExcerciseResponseDto> Excercises { get; set; } = new List<ExcerciseResponseDto>();
+  public IEnumerable<ExerciseResponseDto> Exercises { get; set; } = new List<ExerciseResponseDto>();
 }
