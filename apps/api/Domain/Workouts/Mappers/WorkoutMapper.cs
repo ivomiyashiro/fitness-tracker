@@ -3,7 +3,7 @@ using api.Domain.Workouts.Dtos;
 
 namespace api.Domain.Workouts.Mappers;
 
-public class WorkoutMappers : IWorkoutMappers
+public class WorkoutMapper : IWorkoutMapper
 {
   public WorkoutResponseDto ResponseMap(Workout workout)
   {

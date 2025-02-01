@@ -6,11 +6,11 @@ namespace api.Domain.TrainingPlans.Services;
 
 public class TrainingPlanService(
   IRepository<TrainingPlan> trainingPlanRepository,
-  ITrainingPlanMappers trainingPlanMapper
+  ITrainingPlanMapper trainingPlanMapper
 ) : ITrainingPlanService
 {
   private readonly IRepository<TrainingPlan> _trainingPlanRepository = trainingPlanRepository;
-  private readonly ITrainingPlanMappers _trainingPlanMapper = trainingPlanMapper;
+  private readonly ITrainingPlanMapper _trainingPlanMapper = trainingPlanMapper;
 
   public async Task<IEnumerable<TrainingPlanResponseDto>> Get(int? limit, int? offset, string? search)
   {

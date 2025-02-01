@@ -5,7 +5,7 @@ using api.Domain.Workouts.Dtos;
 
 namespace api.Domain.TrainingPlans.Mappers;
 
-public class TrainingPlanMappers : ITrainingPlanMappers
+public class TrainingPlanMapper : ITrainingPlanMapper
 {
   public TrainingPlan PostMap(TrainingPlanDto dto)
   {

@@ -9,12 +9,12 @@ public class WorkoutService(
   AppDbContext _context,
   IRepository<Workout> workoutRepository,
   IRepository<WorkoutExercise> workoutExerciseRepository,
-  IWorkoutMappers workoutMappers
+  IWorkoutMapper workoutMappers
 ) : IWorkoutService
 {
   private readonly IRepository<Workout> _workoutRepository = workoutRepository;
   private readonly IRepository<WorkoutExercise> _workoutExerciseRepository = workoutExerciseRepository;
-  private readonly IWorkoutMappers _workoutMappers = workoutMappers;
+  private readonly IWorkoutMapper _workoutMappers = workoutMappers;
 
   public async Task<bool> Delete(Guid uid)
   {
