@@ -1,7 +1,6 @@
 using api.Domain.Workouts;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace api.Domain.TrainingPlans;
 
@@ -17,6 +16,5 @@ public class TrainingPlan
 
   public required byte Weeks { get; set; }
 
-  [JsonIgnore]
-  public virtual IEnumerable<Workout>? Workouts { get; set; }
+  public virtual ICollection<Workout> Workouts { get; set; } = new HashSet<Workout>();
 }

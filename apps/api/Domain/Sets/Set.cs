@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using api.Domain.WorkoutExercises;
 
 namespace api.Domain.Sets;
@@ -15,6 +14,5 @@ public class Set
 
   public required int Rir { get; set; }
 
-  [JsonIgnore]
   public virtual WorkoutExercise? WorkoutExercise { get; set; }
 }

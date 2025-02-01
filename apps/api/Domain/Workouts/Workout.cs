@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using api.Domain.TrainingPlans;
 using api.Domain.WorkoutExercises;
 
@@ -16,9 +15,7 @@ public class Workout
 
   public required byte Order { get; set; }
 
-  [JsonIgnore]
   public virtual TrainingPlan? TrainingPlan { get; set; }
 
-  [JsonIgnore]
-  public virtual IEnumerable<WorkoutExercise>? WorkoutExercises { get; set; }
+  public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new HashSet<WorkoutExercise>();
 }

@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using api.Domain.Exercises;
 using api.Domain.Sets;
 using api.Domain.Workouts;
@@ -21,6 +20,5 @@ public class WorkoutExercise
 
   public virtual Exercise? Exercise { get; set; }
 
-  [JsonIgnore]
-  public virtual IEnumerable<Set>? Sets { get; set; }
+  public virtual ICollection<Set> Sets { get; set; } = new HashSet<Set>();
 }
