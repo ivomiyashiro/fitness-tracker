@@ -31,7 +31,10 @@ export const AppNavigation = () => {
   return (
     <nav className="app-padding border-t">
       <ul className="flex justify-around">
-        <AppLink to="training-plans" isActive={pathname === "/training-plans"}>
+        <AppLink
+          to="training-plans"
+          isActive={pathname.includes("/training-plans")}
+        >
           <NotepadTextIcon />
           <span>Plans</span>
         </AppLink>

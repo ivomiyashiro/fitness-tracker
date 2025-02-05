@@ -82,6 +82,14 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
     return entity;
   }
 
+  public async Task<IEnumerable<T>> Update(IEnumerable<T> entities)
+  {
+    _context.Set<T>().UpdateRange(entities);
+    await _context.SaveChangesAsync();
+
+    return entities;
+  }
+
   public async Task<bool> Delete(Guid id)
   {
     var entity = await GetById(id);

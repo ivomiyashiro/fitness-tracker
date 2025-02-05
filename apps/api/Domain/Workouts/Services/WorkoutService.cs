@@ -31,6 +31,13 @@ public class WorkoutService(
     );
   }
 
+  public async Task<WorkoutResponseDto?> GetById(Guid guid)
+  {
+    var result = await _workoutRepository.GetById(guid);
+    if (result == null) return null;
+    return _workoutMappers.ResponseMap(result);
+  }
+
   public async Task<IEnumerable<WorkoutResponseDto>> Get(int? limit, int? offset, string? search)
   {
     return await _workoutRepository.Get(

@@ -10,5 +10,5 @@ public class WorkoutResponseDto
 
   public byte Order { get; set; }
 
-  public IEnumerable<ExerciseResponseDto> Exercises { get; set; } = new List<ExerciseResponseDto>();
+  public IEnumerable<ExerciseResponseDto> Exercises { get; set; } = [];
 }

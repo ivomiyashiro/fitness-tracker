@@ -1,5 +1,3 @@
-import { Workout } from "@/types";
-
 import { DrawerForm } from "@/components/ui/drawer-form";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import {
@@ -10,37 +8,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { ExerciseCombobox } from "@/components/comboboxes/exercise/exercise-combobox";
 
-import { Button } from "@/components/ui/button";
-
-import { useWorkoutForm } from "./workouts-form.hook";
+import { useWorkoutForm, WorkoutFormSchema } from "./workouts-form.hook";
 
 export const WorkoutForm = ({
-  title,
-  open,
   defaultValues,
+  open,
+  title,
+  workoutId,
   onClose,
 }: {
-  title: string;
+  defaultValues: WorkoutFormSchema;
   open: boolean;
-  defaultValues: Workout;
+  title: string;
+  workoutId: string;
   onClose: () => void;
 }) => {
-  const { form, handleResetForm, isLoading, onSubmit } = useWorkoutForm({
+  const { form, isLoading, onSubmit } = useWorkoutForm({
+    workoutId,
     defaultValues,
-    onClose,
   });
 
   return (
     <DrawerForm
       form={form}
       open={open}
-      onClose={() => {
-        handleResetForm();
+      onClose={onClose}
+      onSubmit={() => {
+        form.handleSubmit(onSubmit);
         onClose();
       }}
-      onSubmit={form.handleSubmit(onSubmit)}
     >
       <DrawerHeader>
         <DrawerTitle>{title}</DrawerTitle>

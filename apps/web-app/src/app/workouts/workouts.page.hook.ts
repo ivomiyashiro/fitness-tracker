@@ -1,78 +1,79 @@
 import { useState } from "react";
 import { Workout } from "@/types";
+import { useWorkoutDelete } from "@/hooks/use-workout";
+import { WorkoutFormSchema } from "./workouts-form.hook";
 
-export const useWorkoutPageForm = ({
-  trainingPlanId,
-}: {
-  trainingPlanId?: string;
-}) => {
-  const DEFAULT_TITLE = "New Workout";
-  const DEFAULT_FORM_DATA: Workout = {
-    trainingPlanId: trainingPlanId ?? "",
-    workoutId: "",
-    order: 1,
+export const useWorkoutsPage = () => {
+  const { mutate: deleteWorkout, isPending: isDeletePending } =
+    useWorkoutDelete();
+  const [formTitle, setFormTitle] = useState("New Training Plan");
+
+  const [isFormOpen, setFormOpen] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  const [workoutId, setWorkoutId] = useState("");
+  const [formData, setFormData] = useState<WorkoutFormSchema>({
     name: "",
-    exercises: [],
-  };
-  const [isOpen, setOpen] = useState(false);
-  const [title, setTitle] = useState(DEFAULT_TITLE);
-  const [formData, setFormData] = useState<Workout>(DEFAULT_FORM_DATA);
+    trainingPlanWeekId: "",
+    workoutId: "",
+    order: 0,
+  });
 
-  const handleAddNew = () => {
-    setOpen(true);
-    setTitle(DEFAULT_TITLE);
-    setFormData(DEFAULT_FORM_DATA);
+  const resetData = () => {
+    setFormData({
+      name: "",
+      trainingPlanWeekId: "",
+      workoutId: "",
+      order: 0,
+    });
+  };
+
+  const handleCreateNew = () => {
+    setFormTitle("New Workout");
+    resetData();
+    setFormOpen(true);
+  };
+
+  const handleUpdateTrainingPlan = (data: Workout) => {
+    setFormData(data);
+    setFormTitle(`Editing ${data.name}`);
+    setFormOpen(true);
+  };
+
+  const handleDeleteTrainingPlan = (data: Workout) => {
+    setWorkoutId(data.workoutId);
+    setFormData(data);
+    setDrawerOpen(true);
   };
 
   const handleCloseForm = () => {
-    setOpen(false);
-    setTitle(DEFAULT_TITLE);
-    setFormData(DEFAULT_FORM_DATA);
+    setFormOpen(false);
+    resetData();
   };
 
-  const handleEditTrainingPlanWorkout = (data: Workout) => {
-    setOpen(true);
-    setTitle(`Editing ${data.name}`);
-    setFormData(data);
+  const handleCloseDeleteDrawer = () => {
+    resetData();
+    setDrawerOpen(false);
+  };
+
+  const handleConfirmDeleteDrawer = () => {
+    resetData();
+    setDrawerOpen(false);
+    deleteWorkout(workoutId);
   };
 
   return {
     formData,
-    handleAddNew,
-    handleCloseForm,
-    handleEditTrainingPlanWorkout,
-    isOpen,
-    title,
-  };
-};
-
-export const useWorkoutPageDialog = ({
-  trainingPlanId,
-}: {
-  trainingPlanId?: string;
-}) => {
-  const [isOpen, setOpen] = useState(false);
-  const [dialogData, setDialogData] = useState<Workout>({
-    trainingPlanId: trainingPlanId ?? "",
-    workoutId: "",
-    order: 1,
-    name: "",
-    exercises: [],
-  });
-
-  const handleDeleteTrainingPlan = (data: Workout) => {
-    setOpen(true);
-    setDialogData(data);
-  };
-
-  const handleCloseDeleteDrawer = () => {
-    setOpen(false);
-  };
-
-  return {
-    dialogData,
+    formTitle,
     handleCloseDeleteDrawer,
+    handleCloseForm,
+    handleConfirmDeleteDrawer,
+    handleCreateNew,
     handleDeleteTrainingPlan,
-    isOpen,
+    handleUpdateTrainingPlan,
+    isDeletePending,
+    isDrawerOpen,
+    isFormOpen,
+    workoutId,
   };
 };

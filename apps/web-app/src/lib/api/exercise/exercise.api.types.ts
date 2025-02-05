@@ -1,3 +1,4 @@
-import { Exercise } from "@/types";
-
-export type ExerciseResponse = Exercise[];
+export type ExerciseResponse = {
+  exerciseId: string;
+  name: string;
+};

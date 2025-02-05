@@ -1,4 +1,5 @@
-import BaseService, { GetParams } from "..";
+import BaseService from "..";
+import { GetParams } from "../index.types";
 import { ExerciseResponse } from "./exercise.api.types";
 
 class Service {

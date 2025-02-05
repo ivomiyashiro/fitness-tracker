@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { RequestData, RequestParams } from "./index.types";
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
@@ -13,20 +14,6 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-export type GetParams = {
-  limit?: number;
-  offset?: number;
-  search?: string;
-};
-
-export type RequestParams = {
-  [key: string]: unknown;
-};
-
-export type RequestData = {
-  [key: string]: unknown;
-};
 
 class BaseService {
   async get<T>(endpoint: string, params: RequestParams = {}): Promise<T> {

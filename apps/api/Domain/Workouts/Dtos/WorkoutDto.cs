@@ -8,5 +8,5 @@ public class WorkoutDto
 
   public required string Name { get; set; }
 
-  public IEnumerable<ExerciseResponseDto> Exercises { get; set; } = new List<ExerciseResponseDto>();
+  public IEnumerable<ExerciseResponseDto> Exercises { get; set; } = [];
 }

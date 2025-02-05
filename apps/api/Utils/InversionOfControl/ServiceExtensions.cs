@@ -1,4 +1,5 @@
 using api.Domain.Exercises.Services;
+using api.Domain.Sets.Services;
 using api.Domain.TrainingPlans.Services;
 using api.Domain.WorkoutExercises.Services;
 using api.Domain.Workouts.Services;
@@ -14,6 +15,7 @@ public static class ServiceExtensions
     services.AddScoped<ITrainingPlanService, TrainingPlanService>();
     services.AddScoped<IWorkoutService, WorkoutService>();
     services.AddScoped<IWorkoutExercisesService, WorkoutExercisesService>();
+    services.AddScoped<ISetService, SetService>();
 
     return services;
   }

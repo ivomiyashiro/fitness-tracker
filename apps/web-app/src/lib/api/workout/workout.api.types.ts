@@ -1,10 +1,22 @@
-import { Workout } from "@/types";
 import { ExerciseResponse } from "../exercise/exercise.api.types";
 
 export type WorkoutPostRequest = {
-  trainingPlanId: string;
+  trainingPlanWeekId: string;
   name: string;
-  exercises: ExerciseResponse;
+  order?: number;
+  exercises: ExerciseResponse[];
 };
 
-export type WorkoutResponse = Workout[];
+export type WorkoutPutRequest = {
+  workoutId: string;
+  trainingPlanWeekId: string;
+  name: string;
+  order?: number;
+};
+
+export type WorkoutResponse = {
+  workoutId: string;
+  trainingPlanWeekId: string;
+  name: string;
+  order: number;
+};

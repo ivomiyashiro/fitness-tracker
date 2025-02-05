@@ -1,20 +1,18 @@
-import { useAppHeaderStore } from "@/lib/stores/app-header.store";
+import { HeaderStore, useAppHeaderStore } from "@/lib/stores/app-header.store";
 
 export const PageLayout = ({
   children,
-  title,
-  showSettings = false,
-  prevPage,
   description = "React + TypeScript + .NET",
+  prevPage,
+  showPrevPage = false,
+  showSettings = false,
+  title,
 }: {
   children: React.ReactNode;
-  title?: string;
   description?: string;
-  showSettings?: boolean;
-  prevPage?: string;
-}) => {
+} & HeaderStore) => {
   const { setData } = useAppHeaderStore();
-  setData({ title, showSettings, prevPage });
+  setData({ title, showSettings, showPrevPage, prevPage });
 
   return (
     <>

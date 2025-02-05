@@ -1,0 +1,223 @@
+{
+  "training-plans": [
+    {
+      "trainingPlanId": "TP-001",
+      "name": "Full-Body Strength Program",
+      "description": "A 3-week training plan focusing on full-body strength and endurance.",
+      "weeks": 3
+    },
+    {
+      "trainingPlanId": "TP-002",
+      "name": "Program I",
+      "description": "A 3-week training plan focusing on full-body.",
+      "weeks": 3
+    }
+  ],
+  "training-plan-weeks": [
+    {
+      "trainingPlanWeekId": "TPW-001",
+      "trainingPlanId": "TP-001",
+      "name": "Week 1"
+    },
+    {
+      "trainingPlanWeekId": "TPW-002",
+      "trainingPlanId": "TP-001",
+      "name": "Week 2"
+    },
+    {
+      "trainingPlanWeekId": "TPW-003",
+      "trainingPlanId": "TP-001",
+      "name": "Week 3"
+    },
+    {
+      "trainingPlanWeekId": "TPW-004",
+      "trainingPlanId": "TP-002",
+      "name": "Week 1"
+    },
+    {
+      "trainingPlanWeekId": "TPW-005",
+      "trainingPlanId": "TP-002",
+      "name": "Week 2"
+    },
+    {
+      "trainingPlanWeekId": "TPW-006",
+      "trainingPlanId": "TP-002",
+      "name": "Week 3"
+    }
+  ],
+  "workouts": [
+    {
+      "workoutId": "W-001",
+      "trainingPlanWeekId": "TPW-001",
+      "name": "Push",
+      "order": 1,
+      "exercises": [
+        {
+          "exerciseId": "E-001",
+          "name": "Bench Press"
+        },
+        {
+          "exerciseId": "E-002",
+          "name": "Shoulder Press"
+        }
+      ]
+    },
+    {
+      "workoutId": "W-002",
+      "trainingPlanWeekId": "TPW-001",
+      "name": "Pull",
+      "order": 2,
+      "exercises": [
+        {
+          "exerciseId": "E-003",
+          "name": "Deadlifts"
+        },
+        {
+          "exerciseId": "E-004",
+          "name": "Pull-ups"
+        }
+      ]
+    },
+    {
+      "workoutId": "W-003",
+      "trainingPlanWeekId": "TPW-002",
+      "name": "Legs",
+      "order": 1,
+      "exercises": [
+        {
+          "exerciseId": "E-003",
+          "name": "Deadlifts"
+        },
+        {
+          "exerciseId": "E-004",
+          "name": "Pull-ups"
+        }
+      ]
+    },
+    {
+      "workoutId": "W-004",
+      "trainingPlanWeekId": "TPW-002",
+      "name": "Upper Body",
+      "order": 2,
+      "exercises": [
+        {
+          "exerciseId": "E-001",
+          "name": "Bench Press"
+        },
+        {
+          "exerciseId": "E-002",
+          "name": "Shoulder Press"
+        }
+      ]
+    }
+  ],
+  "workout-exercises": [
+    {
+      "workoutExerciseId": "WE-001",
+      "workout": {
+        "workoutId": "W-001",
+        "name": "Push"
+      },
+      "exercise": {
+        "exerciseId": "E-001",
+        "name": "Bench Press"
+      },
+      "order": 1,
+      "sets": [
+        {
+          "setId": "S-001",
+          "reps": 10,
+          "rir": 2
+        },
+        {
+          "setId": "S-002",
+          "reps": 8,
+          "rir": 1
+        },
+        {
+          "setId": "S-003",
+          "reps": 12,
+          "rir": 3
+        },
+        {
+          "setId": "S-004",
+          "reps": 6,
+          "rir": 1
+        }
+      ]
+    },
+    {
+      "workoutExerciseId": "WE-002",
+      "workout": {
+        "workoutId": "W-001",
+        "name": "Push"
+      },
+      "exercise": {
+        "exerciseId": "E-002",
+        "name": "Shoulder Press"
+      },
+      "order": 2,
+      "sets": [
+        {
+          "setId": "S-001",
+          "reps": 10,
+          "rir": 2
+        },
+        {
+          "setId": "S-002",
+          "reps": 8,
+          "rir": 1
+        },
+        {
+          "setId": "S-003",
+          "reps": 12,
+          "rir": 3
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "exerciseId": "E-001",
+      "name": "Bench Press"
+    },
+    {
+      "exerciseId": "E-002",
+      "name": "Shoulder Press"
+    },
+    {
+      "exerciseId": "E-003",
+      "name": "Deadlifts"
+    },
+    {
+      "exerciseId": "E-004",
+      "name": "Pull-ups"
+    }
+  ],
+  "sets": [
+    {
+      "setId": "S-001",
+      "exerciseId": "E-001",
+      "reps": 10,
+      "rir": 2
+    },
+    {
+      "setId": "S-002",
+      "exerciseId": "E-001",
+      "reps": 8,
+      "rir": 1
+    },
+    {
+      "setId": "S-003",
+      "exerciseId": "E-002",
+      "reps": 12,
+      "rir": 3
+    },
+    {
+      "setId": "S-004",
+      "exerciseId": "E-003",
+      "reps": 6,
+      "rir": 1
+    }
+  ]
+}

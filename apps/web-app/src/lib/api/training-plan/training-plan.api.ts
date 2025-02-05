@@ -1,11 +1,12 @@
-import BaseService, { RequestParams } from "..";
+import BaseService from "..";
 import { TrainingPlan } from "@/types";
 import {
-  TrainingPlanDeleteReponse,
-  TrainingPlanRequest,
+  TrainingPlanPostRequest,
+  TrainingPlanPutRequest,
   TrainingPlanResponse,
 } from "./training-plan.api.types";
 import { WorkoutResponse } from "../workout/workout.api.types";
+import { DeletedResponse, RequestParams } from "../index.types";
 
 class Service {
   private baseService: BaseService;
@@ -16,25 +17,22 @@ class Service {
   }
 
   public get(params?: RequestParams) {
-    return this.baseService.get<TrainingPlanResponse>(this.endpoint, params);
+    return this.baseService.get<TrainingPlanResponse[]>(this.endpoint, params);
   }
 
-  public post(data: TrainingPlanRequest) {
+  public post(data: TrainingPlanPostRequest) {
     return this.baseService.post<TrainingPlanResponse>(this.endpoint, data);
   }
 
-  public put(
-    trainingPlanId: TrainingPlan["trainingPlanId"],
-    data: TrainingPlanRequest,
-  ) {
+  public put(data: TrainingPlanPutRequest) {
     return this.baseService.put<TrainingPlanResponse>(
-      `${this.endpoint}/${trainingPlanId}`,
+      `${this.endpoint}/${data.trainingPlanId}`,
       data,
     );
   }
 
   public delete(trainingPlanId: TrainingPlan["trainingPlanId"]) {
-    return this.baseService.delete<TrainingPlanDeleteReponse>(
+    return this.baseService.delete<DeletedResponse>(
       `${this.endpoint}/${trainingPlanId}`,
     );
   }

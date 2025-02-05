@@ -1,6 +1,7 @@
 using api.Data;
 using api.Domain.Exercises;
 using api.Domain.TrainingPlans;
+using api.Domain.WorkoutExercises;
 using api.Domain.Workouts;
 using api.Utils;
 using api.Utils.InversionOfControl;
@@ -39,5 +40,6 @@ app.UseHttpsRedirection();
 app.MapExerciseEndpoints();
 app.MapTrainingPlanEndpoints();
 app.MapWorkoutEndpoints();
+app.MapWorkoutExerciseEndpoints();
 
 app.Run();

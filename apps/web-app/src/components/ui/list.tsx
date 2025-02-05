@@ -91,8 +91,11 @@ export const ListItem = <T extends Record<string, unknown>>({
       {...handlers}
     >
       <div
-        className={cn("flex items-center transition-all", {
-          "-translate-x-24": !isSwiped,
+        className={cn("grid items-center transition-all last:border-none", {
+          "-translate-x-12": !isSwiped && (allowDeleting || allowEditing),
+          "-translate-x-24": !isSwiped && allowDeleting && allowEditing,
+          "grid-cols-[3rem_55rem]": allowDeleting || allowEditing,
+          "grid-cols-[3rem_3rem_55rem]": allowDeleting && allowEditing,
         })}
       >
         {allowDeleting && (
@@ -117,17 +120,10 @@ export const ListItem = <T extends Record<string, unknown>>({
             <PencilIcon className="size-4" />
           </button>
         )}
-      </div>
-      <div
-        className={cn(
-          "flex w-full items-center justify-between gap-2 px-4 py-3 transition-all last:border-none",
-          {
-            "-translate-x-[96px]": !isSwiped,
-          },
-        )}
-        onClick={() => onItemClick?.(data)}
-      >
-        <div className="flex items-center gap-2">
+        <div
+          className="flex items-center gap-2 px-4"
+          onClick={() => onItemClick?.(data)}
+        >
           {Icon && <Icon className="size-4 text-muted-foreground" />}
           <p>{displayValue}</p>
         </div>
@@ -152,7 +148,12 @@ export const List = ({
   onAddNew,
 }: ListProps) => {
   return (
-    <Card className={cn("overflow-hidden", className)}>
+    <Card
+      className={cn(
+        "overflow-hidden border-none outline outline-1 outline-border",
+        className,
+      )}
+    >
       <ul>
         {allowAdding && (
           <li

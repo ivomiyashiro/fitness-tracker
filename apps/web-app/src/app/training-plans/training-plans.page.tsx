@@ -3,7 +3,7 @@ import { NotepadTextIcon } from "lucide-react";
 
 import {
   useTrainingPlanDelete,
-  useTrainingPlanGet,
+  useTrainingPlan,
 } from "@/hooks/use-training-plan";
 
 import { AppFallback } from "@/components/ui/app-fallback";
@@ -11,23 +11,27 @@ import { DrawerDialog } from "@/components/ui/drawer-dialog";
 import { List, ListItem } from "@/components/ui/list";
 import { PageLayout } from "@/components/layouts/page/page.layout";
 
-import {
-  useTrainingPlanDialog,
-  useTrainingPlanForm,
-} from "./training-plans.page.hook";
+import { useTrainingPlansPage } from "./training-plans.page.hook";
 import { TrainingPlanForm } from "./training-plans-form";
 
 const TrainingPlansPage = () => {
   const navigate = useNavigate();
 
-  const { data: trainingPlans, isLoading } = useTrainingPlanGet();
+  const { data: trainingPlans, isLoading } = useTrainingPlan();
   const { mutate: deleteTrainingPlan } = useTrainingPlanDelete();
 
-  const { form, handleAddNew, handleCloseForm, handleEditTrainingPlan } =
-    useTrainingPlanForm();
-
-  const { deleteDrawer, handleCloseDeleteDrawer, handleDeleteTrainingPlan } =
-    useTrainingPlanDialog();
+  const {
+    formData,
+    formTitle,
+    handleCloseDeleteDrawer,
+    handleCloseForm,
+    handleCreateNew,
+    handleDeleteTrainingPlan,
+    handleUpdateTrainingPlan,
+    isDrawerOpen,
+    isFormOpen,
+    trainingPlanId,
+  } = useTrainingPlansPage();
 
   if (isLoading) {
     return <AppFallback />;
@@ -35,7 +39,7 @@ const TrainingPlansPage = () => {
 
   return (
     <PageLayout title="Training Plans">
-      <List allowAdding={true} onAddNew={handleAddNew}>
+      <List allowAdding={true} onAddNew={handleCreateNew}>
         {trainingPlans?.map((trainingPlan, index) => (
           <ListItem
             key={trainingPlan.trainingPlanId ?? index}
@@ -45,29 +49,26 @@ const TrainingPlansPage = () => {
             displayExpr="name"
             itemIcon={NotepadTextIcon}
             onDeleteClick={handleDeleteTrainingPlan}
-            onEditClick={handleEditTrainingPlan}
+            onEditClick={handleUpdateTrainingPlan}
             onItemClick={() =>
-              navigate(
-                `/training-plans/${trainingPlan.trainingPlanId}/workouts`,
-              )
+              navigate(`/training-plans/${trainingPlan.trainingPlanId}/weeks`)
             }
           />
         ))}
       </List>
       <TrainingPlanForm
-        defaultValues={form.data}
-        open={form.isOpen}
-        title={form.title}
+        trainingPlanId={trainingPlanId}
+        defaultValues={formData}
+        open={isFormOpen}
+        title={formTitle}
         onClose={handleCloseForm}
       />
       <DrawerDialog
-        open={deleteDrawer.isOpen}
-        title={`Are you sure you want to delete ${deleteDrawer.data.name}?`}
+        open={isDrawerOpen}
+        title={`Are you sure you want to delete ${formData.name}?`}
         onClose={handleCloseDeleteDrawer}
-        onPrimaryButtonClick={() =>
-          deleteTrainingPlan(deleteDrawer.data.trainingPlanId)
-        }
-        onSecondaryButtonClick={handleCloseDeleteDrawer}
+        onConfirm={() => deleteTrainingPlan(trainingPlanId)}
+        onCancel={handleCloseDeleteDrawer}
       />
     </PageLayout>
   );

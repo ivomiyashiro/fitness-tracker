@@ -19,10 +19,11 @@ import {
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 
-type ComboboxProps<T> = {
+export type ComboboxProps<T> = {
   data: T[];
   valueKey: keyof T;
   labelKey: keyof T;
+  mode?: "single" | "multiple";
   placeholder?: string;
   selected: T[];
   onSelect: (selected: T[]) => void;
@@ -32,6 +33,7 @@ export function Combobox<T>({
   data,
   valueKey,
   labelKey,
+  mode = "multiple",
   placeholder = "Select...",
   selected,
   onSelect,
@@ -43,14 +45,25 @@ export function Combobox<T>({
       (selectedItem) => selectedItem[valueKey] === item[valueKey],
     );
 
-    if (isSelected) {
-      onSelect(
-        selected.filter(
-          (selectedItem) => selectedItem[valueKey] !== item[valueKey],
-        ),
-      );
-    } else {
+    if (mode === "multiple") {
+      if (isSelected) {
+        onSelect(
+          selected.filter(
+            (selectedItem) => selectedItem[valueKey] !== item[valueKey],
+          ),
+        );
+
+        return;
+      }
+
       onSelect([...selected, item]);
+    } else {
+      if (isSelected) {
+        onSelect([]);
+      } else {
+        onSelect([item]);
+      }
+      setOpen(false);
     }
   };
 

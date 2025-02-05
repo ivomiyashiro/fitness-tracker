@@ -1,19 +1,24 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { Workout } from "@/types";
+
 import { WorkoutService } from "@/lib/api/workout/workout.api";
 import { WorkoutPostRequest } from "@/lib/api/workout/workout.api.types";
 
 import { getTrainingPlansQueryKey } from "./use-training-plan";
-import { Workout } from "@/types";
 
 export const getTrainingPlanWorkoutsQueryKey = (handle?: string | number) => {
   return ["workout", handle];
 };
 
-export const useWorkoutGet = () => {
+export const useWorkout = ({
+  trainingPlanWeekId,
+}: {
+  trainingPlanWeekId?: string;
+}) => {
   return useQuery({
     queryKey: getTrainingPlanWorkoutsQueryKey(),
-    queryFn: () => WorkoutService.get(),
+    queryFn: () => WorkoutService.get({ trainingPlanWeekId }),
   });
 };
 

@@ -1,5 +1,3 @@
-import { TrainingPlan } from "@/types";
-
 import { DrawerForm } from "@/components/ui/drawer-form";
 import { DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import {
@@ -12,33 +10,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-import { useTrainingPlanForm } from "./training-plans-form.hook";
+import {
+  TrainingPlanFormScheme,
+  useTrainingPlanForm,
+} from "./training-plans-form.hook";
 
 export const TrainingPlanForm = ({
-  title,
-  open,
   defaultValues,
+  open,
+  title,
+  trainingPlanId,
   onClose,
 }: {
-  title: string;
+  defaultValues: TrainingPlanFormScheme;
   open: boolean;
-  defaultValues: TrainingPlan;
+  title: string;
+  trainingPlanId: string;
   onClose: () => void;
 }) => {
-  const { form, onSubmit, handleResetForm, isLoading } = useTrainingPlanForm({
+  const { form, isLoading, onSubmit } = useTrainingPlanForm({
+    trainingPlanId: trainingPlanId,
     defaultValues,
-    onClose,
   });
 
   return (
     <DrawerForm
       form={form}
       open={open}
-      onClose={() => {
-        handleResetForm();
+      onClose={onClose}
+      onSubmit={() => {
+        form.handleSubmit(onSubmit);
         onClose();
       }}
-      onSubmit={form.handleSubmit(onSubmit)}
     >
       <DrawerHeader>
         <DrawerTitle>{title}</DrawerTitle>
@@ -72,24 +75,6 @@ export const TrainingPlanForm = ({
                 <Input
                   className="mt-2"
                   placeholder="Description..."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="weeks"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Duartion in weeks</FormLabel>
-              <FormControl>
-                <Input
-                  className="mt-2"
-                  placeholder="0"
-                  type="number"
                   {...field}
                 />
               </FormControl>

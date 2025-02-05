@@ -3,6 +3,7 @@ using api.Domain.Workouts.Dtos;
 using api.Domain.Workouts.Services;
 using api.Domain.WorkoutExercises.Services;
 using api.Utils.Dtos;
+using api.Domain.WorkoutExercises.Dtos;
 
 namespace api.Domain.Workouts;
 
@@ -67,6 +68,7 @@ public static class WorkoutEndpoints
       var result = await _workoutExerciseService.GetByWorkoutId(uid);
 
       return Results.Ok(result);
-    });
+    })
+    .Produces<IEnumerable<WorkoutExerciseResponseDto>>();
   }
 }

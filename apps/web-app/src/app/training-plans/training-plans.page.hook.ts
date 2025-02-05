@@ -1,73 +1,70 @@
 import { useState } from "react";
 import { TrainingPlan } from "@/types";
 
-export const useTrainingPlanDialog = () => {
-  const [deleteDrawer, setDeleteDrawer] = useState<{
-    isOpen: boolean;
-    data: TrainingPlan;
-  }>({
-    isOpen: false,
-    data: {
-      trainingPlanId: "",
-      name: "",
-      description: "",
-      weeks: 0,
-      workouts: [],
-    },
+export const useTrainingPlansPage = () => {
+  const [formTitle, setFormTitle] = useState("New Training Plan");
+
+  const [isFormOpen, setFormOpen] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  const [trainingPlanId, setTrainingPlanId] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
   });
 
-  const handleDeleteTrainingPlan = (data: TrainingPlan) => {
-    setDeleteDrawer({ data, isOpen: true });
-  };
-
-  const handleCloseDeleteDrawer = () => {
-    setDeleteDrawer((prev) => ({ ...prev, isOpen: false }));
-  };
-
-  return {
-    deleteDrawer,
-    handleCloseDeleteDrawer,
-    handleDeleteTrainingPlan,
-  };
-};
-
-export const useTrainingPlanForm = () => {
-  const [form, setForm] = useState<{
-    isOpen: boolean;
-    title: string;
-    data: TrainingPlan;
-  }>({
-    isOpen: false,
-    title: "New Training Plan",
-    data: {
-      trainingPlanId: "",
+  const resetData = () => {
+    setTrainingPlanId("");
+    setFormData({
       name: "",
       description: "",
-      weeks: 0,
-      workouts: [],
-    },
-  });
-
-  const handleEditTrainingPlan = (data: TrainingPlan) => {
-    setForm({
-      isOpen: true,
-      title: `Editing ${data.name}`,
-      data,
     });
   };
 
-  const handleCloseForm = () => {
-    setForm((prev) => ({ ...prev, isOpen: false }));
+  const handleCreateNew = () => {
+    setFormTitle("New Training Plan");
+    resetData();
+    setFormOpen(true);
   };
 
-  const handleAddNew = () => {
-    setForm((prev) => ({ ...prev, title: "New Training Plan", isOpen: true }));
+  const handleUpdateTrainingPlan = (data: TrainingPlan) => {
+    setTrainingPlanId(data.trainingPlanId);
+    setFormData({
+      name: data.name,
+      description: data.description,
+    });
+    setFormTitle(`Editing ${data.name}`);
+    setFormOpen(true);
+  };
+
+  const handleDeleteTrainingPlan = (data: TrainingPlan) => {
+    setFormData({
+      name: data.name,
+      description: data.description,
+    });
+    setDrawerOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setFormOpen(false);
+    resetData();
+  };
+
+  const handleCloseDeleteDrawer = () => {
+    resetData();
+    setDrawerOpen(false);
   };
 
   return {
-    form,
-    handleAddNew,
+    formData,
+    formTitle,
+    handleCloseDeleteDrawer,
     handleCloseForm,
-    handleEditTrainingPlan,
+    handleCreateNew,
+    handleDeleteTrainingPlan,
+    handleUpdateTrainingPlan,
+    isDrawerOpen,
+    isFormOpen,
+    trainingPlanId,
   };
 };

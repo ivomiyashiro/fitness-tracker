@@ -1,3 +1,4 @@
+using api.Domain.Sets.Mappers;
 using api.Domain.TrainingPlans.Mappers;
 using api.Domain.WorkoutExercises.Mappers;
 using api.Domain.Workouts.Mappers;
@@ -11,6 +12,7 @@ public static class MapperExtensions
     services.AddScoped<ITrainingPlanMapper, TrainingPlanMapper>();
     services.AddScoped<IWorkoutMapper, WorkoutMapper>();
     services.AddScoped<IWorkoutExerciseMapper, WorkoutExerciseMapper>();
+    services.AddScoped<ISetMapper, SetMapper>();
 
     return services;
   }

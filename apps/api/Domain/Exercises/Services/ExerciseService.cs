@@ -24,6 +24,17 @@ public class ExerciseService(
     );
   }
 
+  public async Task<ExerciseResponseDto?> GetById(Guid guid)
+  {
+    var result = await _exerciseRepository.GetById(guid);
+    if (result == null) return null;
+    return new ExerciseResponseDto
+    {
+      ExerciseId = result.ExerciseId,
+      Name = result.Name,
+    };
+  }
+
   public Task<Exercise?> Post(ExerciseDto dto)
   {
     throw new NotImplementedException();

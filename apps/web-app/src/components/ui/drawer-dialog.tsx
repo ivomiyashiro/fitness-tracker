@@ -11,8 +11,8 @@ import { Button } from "./button";
 export const DrawerDialog = ({
   description,
   onClose,
-  onPrimaryButtonClick,
-  onSecondaryButtonClick,
+  onConfirm,
+  onCancel,
   open,
   primaryButtonText = "Delete",
   secondaryButtonText = "Cancel",
@@ -22,8 +22,8 @@ export const DrawerDialog = ({
 }: {
   description?: string;
   onClose: () => void;
-  onPrimaryButtonClick?: () => void;
-  onSecondaryButtonClick?: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
   open: boolean;
   primaryButtonText?: string;
   secondaryButtonText?: string;
@@ -32,12 +32,12 @@ export const DrawerDialog = ({
   title: string;
 }) => {
   const handlePrimaryButtonClick = () => {
-    onPrimaryButtonClick?.();
+    onConfirm?.();
     onClose();
   };
 
   const handleSeconaryButtonClick = () => {
-    onSecondaryButtonClick?.();
+    onCancel?.();
     onClose();
   };
 

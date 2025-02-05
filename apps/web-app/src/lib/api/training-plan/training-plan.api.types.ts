@@ -1,15 +1,16 @@
-import { TrainingPlan } from "@/types";
-
-// Requests =>
-export type TrainingPlanRequest = {
+export type TrainingPlanResponse = {
+  trainingPlanId: string;
   name: string;
-  description?: string;
-  weeks: number;
+  description: string;
 };
 
-// Responses =>
-export type TrainingPlanResponse = TrainingPlan[];
+export type TrainingPlanPostRequest = {
+  name: string;
+  description?: string;
+};
 
-export type TrainingPlanDeleteReponse = {
-  deleted: boolean;
+export type TrainingPlanPutRequest = {
+  trainingPlanId: string;
+  name: string;
+  description?: string;
 };
